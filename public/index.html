@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="main_app">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <base href="/">
+    <title>Editor</title>
+    <script type="text/javascript" src="public/javascript/vendors/jquery.min.js"></script>
+    <script type="text/javascript" src="public/javascript/vendors/angular.min.js"></script>
+      <script type="text/javascript" src="public/javascript/vendors/angular-sanitize.min.js"></script>
+    <script type="text/javascript" src="public/javascript/vendors/mentio.min.js"></script>
+    <!-- <script type="text/javascript" src="public/javascript/vendors/mentio.js"></script> -->
+    <script type="text/javascript" src="public/javascript/vendors/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="public/javascript/app.js"></script>
+    <script type="text/javascript" src="public/javascript/main.js"></script>
+    <link rel="stylesheet" type="text/css" href="public/stylesheet/bootstrap/united.min.css">
+    <link rel="stylesheet" type="text/css" href="public/stylesheet/main.css">
+    <link rel="stylesheet" type="text/css" href="public/stylesheet/jquery-ui.min.css">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+</head>
+
+<body>
+
+    <div class="container" ng-controller="mainCtrl">
+        <script type="text/ng-template" id="data-value.tpl">
+            <ul class="list-group">
+                <li mentio-menu-item="item" ng-repeat="item in items" class="list-group-item">
+                    <span ng-bind-html="item.label | mentioHighlight:typedTerm:'menu-highlighted' | unsafe"></span>
+                </li>
+            </ul>
+        </script>
+        <div contenteditable mentio mentio-typed-term="typedTerm"
+        ng-model="text.value"
+        strip-br="true"
+        mentio-trigger-char="'{'"
+        mentio-items="data"
+        mentio-macros = "macros"
+        mentio-require-leading-space="false"
+        mentio-template-url="data-value.tpl"
+        mentio-select="getDataText(item)"></div>
+        <div>
+            [[result |  json]]
+        </div>
+        <button type="button" ng-click="test()">test</button>
+    </div>
+
+</body>
+
+</html>
